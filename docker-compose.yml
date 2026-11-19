@@ -1,0 +1,24 @@
+services:
+  mysqldb:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: tanzeel
+      MYSQL_DATABASE: APNE_DATABASE_KA_NAAM
+    ports:
+      - '3307:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  web-app:
+    depends_on:
+      - mysqldb
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - DB_HOST=mysqldb
+      - DB_PASSWORD=tanzeel
+
+volumes:
+  mysql_data:
