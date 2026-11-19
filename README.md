@@ -48,3 +48,29 @@ The database password is stored in a `.env` file and is not included in this rep
 
 ```bash
 npm install
+
+## 🐳 Running with Docker (Recommended)
+
+This project is fully containerized using **Docker** and **Docker Compose**, allowing you to run both the Node.js backend and MySQL database seamlessly without installing MySQL locally.
+
+### Prerequisites
+* [Docker Desktop](https://docker.com) installed and running on your machine.
+
+### Setup & Run
+1. Clone the repository:
+   ```bash
+   git clone <your-github-repo-link>
+   cd <your-project-folder>
+   ```
+
+2. Create a `.env` file in the root directory and add your database credentials:
+   ```env
+   DB_PASSWORD=your_secure_password
+   ```
+
+3. Build and start the containers using Docker Compose:
+   ```bash
+   docker compose up --build
+   ```
+
+4. The server will start running on `http://localhost:3000`.
