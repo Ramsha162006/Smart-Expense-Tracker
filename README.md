@@ -1,80 +1,54 @@
-# Smart Expense Tracker
+#### Smart Expense Tracker
 
-A full-stack web application for managing and tracking personal expenses.
+A full-stack web application for personal expense management built with **Node.js, Express, MySQL, Distributed Redis Caching, and Docker**. 
 
-## Features
+#### 🌐 Live Demo
 
-- Add expenses
-- Edit expenses
-- Delete expenses
-- View all expenses
-- Filter expenses by category
-- Filter expenses by month
-- Sort expenses
-- View total spending
-- View number of expenses
-- Category-wise spending summary
-- Monthly expense reports
-- Monthly budget tracking
-- Budget warnings
-- Monthly, daily, and category spending charts
-- Dark mode
-- Responsive design
-- Download monthly expense report as PDF
+* **[Smart Expense Tracker Live](https://smart-expense-tracker-h958.onrender.com)** *(Note: Hosted on Render Free Tier; initial load may take 30–40 seconds).*
 
-## Technologies Used
+#### ✨ Key Features
 
-- HTML
-- CSS
-- JavaScript
-- Node.js
-- Express.js
-- MySQL
-- Chart.js
-- jsPDF
+* **Expense Management & Analytics:** Add, edit, delete, and filter expenses, set monthly budgets with warnings, view interactive spending charts, and download PDF reports.
+* **High-Performance Caching & UI:** Sub-millisecond API responses via **Redis** (Cache-Aside pattern) alongside a responsive layout with Dark Mode.
 
-## Database
+#### 🏗️ System Architecture & Caching Strategy
 
-The application uses MySQL with a database named:
+* **Cache Hit / Miss & TTL:** Queries **Upstash Redis** first for sub-millisecond responses; on a miss, fetches from **Aiven Cloud MySQL** and caches data with a **60-second TTL**.
+* **Invalidation & Fallback:** Write operations (POST, PUT, DELETE) automatically purge (DEL) the cached key, with built-in fallback to MySQL if Redis is unreachable.
 
-`SmartExpenseTracker`
+#### 🛠️ Tech Stack
 
-The database password is stored in a `.env` file and is not included in this repository.
+* **Frontend / Backend:** HTML, CSS, JS, Chart.js, jsPDF | Node.js, Express.js
+* **Database, Caching & DevOps:** MySQL (Aiven Cloud), Redis (Upstash Cloud), Docker, Docker Compose, Render
 
-## How to Run
+#### 🐳 Quick Start (Docker - Recommended)
 
-1. Clone the repository.
-2. Install dependencies:
+1. **Clone the repository:** 
 
-```bash
-npm install
+bash
 
-## 🐳 Running with Docker (Recommended)
+git clone https://github.com/Ramsha162006/Smart-Expense-Tracker.git
+cd Smart-Expense-Tracker
 
-This project is fully containerized using **Docker** and **Docker Compose**, allowing you to run both the Node.js backend and MySQL database seamlessly without installing MySQL locally.
+Use code with caution.
 
-### Prerequisites
-* [Docker Desktop](https://docker.com) installed and running on your machine.
+Copy code text to clipboard.
+2. **Create .env** and add DB_PASSWORD=your_secure_password.
+3. **Build and run:** 
 
-### Setup & Run
-1. Clone the repository:
-   ```bash
-   git clone <your-github-repo-link>
-   cd <your-project-folder>
-   ```
+bash
 
-2. Create a `.env` file in the root directory and add your database credentials:
-   ```env
-   DB_PASSWORD=your_secure_password
-   ```
+docker compose up --build
 
-3. Build and start the containers using Docker Compose:
-   ```bash
-   docker compose up --build
-   ```
+Use code with caution.
 
-4. The server will start running on `http://localhost:3000`.
+Copy code text to clipboard.
 
-## 🌐 Live Demo
-Check out the live deployed application here: **[Smart Expense Tracker Live](https://smart-expense-tracker-h958.onrender.com)**
-*(Note: Hosted on Render Free Tier — initial load may take 30–40 seconds if the server is waking up from sleep).*
+Access at http://localhost:3000.
+
+#### 💻 Manual Setup (Without Docker)
+
+1. Run npm install and configure .env (DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, REDIS_URL).
+2. Start the server: node server.js
+
+**Author:** Ramsha
