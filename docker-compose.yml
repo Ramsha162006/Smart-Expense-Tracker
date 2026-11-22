@@ -3,22 +3,31 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: tanzeel
-      MYSQL_DATABASE: APNE_DATABASE_KA_NAAM
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: SmartExpenseTracker
     ports:
       - '3307:3306'
     volumes:
       - mysql_data:/var/lib/mysql
 
+  redis:
+    image: redis:alpine
+    restart: always
+    ports:
+      - '6379:6379'
+
   web-app:
     depends_on:
       - mysqldb
+      - redis
     build: .
     ports:
       - '3000:3000'
     environment:
       - DB_HOST=mysqldb
-      - DB_PASSWORD=tanzeel
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=SmartExpenseTracker
+      - REDIS_URL=redis://redis:6379
 
 volumes:
   mysql_data:
