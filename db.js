@@ -19,21 +19,23 @@ db.connect((err) => {
 
     const createTableQuery = `
         CREATE TABLE IF NOT EXISTS expenses (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            title VARCHAR(255) NOT NULL,
+            expense_id INT AUTO_INCREMENT PRIMARY KEY,
             amount DECIMAL(10, 2) NOT NULL,
             category VARCHAR(100) NOT NULL,
-            date DATE NOT NULL,
+            description VARCHAR(255),
+            expense_date DATE NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     `;
 
-    db.query(createTableQuery, (tableErr) => {
-        if (tableErr) {
-            console.error("Failed to ensure expenses table:", tableErr);
-        } else {
-            console.log("Expenses table verified/created successfully!");
-        }
+    db.query("DROP TABLE IF EXISTS expenses", () => {
+        db.query(createTableQuery, (tableErr) => {
+            if (tableErr) {
+                console.error("Failed to create expenses table:", tableErr);
+            } else {
+                console.log("Expenses table created with exact schema!");
+            }
+        });
     });
 });
 
