@@ -27,16 +27,6 @@ db.connect((err) => {
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     `;
-
-    db.query("DROP TABLE IF EXISTS expenses", () => {
-        db.query(createTableQuery, (tableErr) => {
-            if (tableErr) {
-                console.error("Failed to create expenses table:", tableErr);
-            } else {
-                console.log("Expenses table created with exact schema!");
-            }
-        });
-    });
 });
 
 module.exports = db;
